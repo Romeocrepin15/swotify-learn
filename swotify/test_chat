@@ -1,0 +1,4 @@
+from transformers import pipeline
+
+pipe = pipeline("text-generation", model="gpt2")
+print(pipe("Bonjour, je suis un élève et j'aimerais savoir", max_length=50))

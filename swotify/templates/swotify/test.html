@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Scolaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center">Tableau de Bord - Performance Scolaire</h2>
+        
+        <!-- Statistiques Globales -->
+        <div class="row text-center my-4">
+            <div class="col-md-4">
+                <div class="p-3 bg-success text-white rounded">
+                    <h4>Taux de Réussite</h4>
+                    <p>85%</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 bg-danger text-white rounded">
+                    <h4>Taux d'Échec</h4>
+                    <p>15%</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 bg-warning text-dark rounded">
+                    <h4>Absences Moyennes</h4>
+                    <p>5 heures</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graphique des Performances -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Tableau des Élèves -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">Performances des Élèves</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Matière</th>
+                            <th>Note</th>
+                            <th>Heures d'Absence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alice</td>
+                            <td>Mathématiques</td>
+                            <td>17</td>
+                            <td>2h</td>
+                        </tr>
+                        <tr>
+                            <td>Bob</td>
+                            <td>Physique</td>
+                            <td>14</td>
+                            <td>3h</td>
+                        </tr>
+                        <tr>
+                            <td>Charlie</td>
+                            <td>Français</td>
+                            <td>16</td>
+                            <td>1h</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Graphique avec Chart.js
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Mathématiques', 'Physique', 'Français', 'Histoire', 'SVT'],
+                datasets: [{
+                    label: 'Moyenne des classes',
+                    data: [17, 14, 16, 15, 13],
+                    backgroundColor: ['blue', 'red', 'green', 'purple', 'orange']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

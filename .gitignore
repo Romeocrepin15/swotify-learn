@@ -1,0 +1,20 @@
+# Fichier de configuration secret
+.env
+
+# Environnement virtuel Python
+venv/
+
+# Fichiers compilés Python
+__pycache__/
+*.py[cod]
+
+# Base de données SQLite
+*.sqlite3
+
+# Fichiers logs
+*.log
+
+# Répertoires d'IDE
+.vscode/
+.idea/
+IA/modele_local/model.safetensors

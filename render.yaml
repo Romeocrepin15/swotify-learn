@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: swotify-learn-backend
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn swotify_learn.wsgi --log-file -"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: swotify_learn.settings
+      - key: DATABASE_URL
+        fromDatabase:
+          name: swotify-learn-db
+          property: connectionString
+    autoDeploy: true

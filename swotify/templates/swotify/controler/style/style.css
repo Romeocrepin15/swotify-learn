@@ -1,0 +1,26 @@
+body {
+    background-color: #f8f9fa;
+}
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.card h2 {
+    color: #343a40;
+}
+.card p {
+    color: #495057;
+}
+.table th, .table td {
+    vertical-align: middle;
+}
+.table th {
+    background-color: #e9ecef;
+}
+.table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa;
+}
+.table tbody tr:hover {
+    background-color: #e2e6ea;
+}

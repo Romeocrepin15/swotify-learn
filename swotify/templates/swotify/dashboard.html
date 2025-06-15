@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align: center;">Tableau de Bord</h1>
+
+    <div class="dashboard-container">
+        <!-- Indicateurs clés -->
+        <div class="card">
+            <h2>Taux de Réussite</h2>
+            <p><strong>{{ taux_reussite }}%</strong></p>
+            <progress value="{{ taux_reussite }}" max="100"></progress>
+        </div>
+
+        <div class="card">
+            <h2>Moyenne Générale</h2>
+            <p><strong>{{ moyenne_globale }}</strong></p>
+        </div>
+
+        <div class="card">
+            <h2>Nombre Total d'Absences</h2>
+            <p><strong>{{ total_absences }}</strong></p>
+        </div>
+
+        <!-- Graphique d'évolution des performances -->
+        <div class="card" style="grid-column: span 2;">
+            <h2>Évolution des Notes</h2>
+            <canvas id="performanceChart"></canvas>
+        </div>
+
+        <div class="card" style="grid-column: span 2;">
+            <h2>Évolution des Absences</h2>
+            <canvas id="absenceChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Récupération des données Django en JSON
+        const evolutionPerformance = {{ evolution_performance|safe }};
+        const evolutionAbsences = {{ evolution_absences|safe }};
+
+        const labelsPerformance = evolutionPerformance.map(item => item.date);
+        const moyennes = evolutionPerformance.map(item => item.moyenne);
+
+        const labelsAbsences = evolutionAbsences.map(item => item.date);
+        const absences = evolutionAbsences.map(item => item.absences);
+
+        // Graphique des performances
+        new Chart(document.getElementById("performanceChart"), {
+            type: "line",
+            data: {
+                labels: labelsPerformance,
+                datasets: [
+                    { label: "Moyenne", data: moyennes, borderColor: "#82ca9d", fill: false }
+                ]
+            },
+            options: { responsive: true }
+        });
+
+        // Graphique des absences
+        new Chart(document.getElementById("absenceChart"), {
+            type: "bar",
+            data: {
+                labels: labelsAbsences,
+                datasets: [
+                    { label: "Absences", data: absences, backgroundColor: "#ff7300" }
+                ]
+            },
+            options: { responsive: true }
+        });
+    </script>
+
+</body>
+</html>
